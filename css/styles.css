@@ -178,7 +178,7 @@ p {
 }
 
 h1 {
-  max-width: 12ch;
+  max-width: 14ch;
   margin: 0;
   color: var(--brand-dark);
   font-size: clamp(2.4rem, 5vw, 4.8rem);
