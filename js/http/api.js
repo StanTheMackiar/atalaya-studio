@@ -1,12 +1,19 @@
+const BASE_URL = "https://jsonplaceholder.typicode.com/users";
+
 export const fetchTestimonios = async () => {
-  const BASE_URL = "https://jsonplaceholder.typicode.com/users";
   try {
-    const response = await fetch(BASE_URL);
+    const response = await fetch(BASE_URL, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
     if (!response.ok) {
-      throw new Error("Error fetching testimonios");
+      throw new Error(`Respuesta HTTP ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching testimonios:", error);
 

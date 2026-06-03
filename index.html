@@ -5,60 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Atalaya Studio es un estudio de diseño gráfico y desarrollo web que ofrece soluciones creativas para tu negocio. Desde branding hasta diseño web, estamos aquí para ayudarte a destacar en el mercado."
+      content="Atalaya Studio es un estudio de diseño gráfico y desarrollo web que ofrece soluciones creativas para tu negocio."
     />
 
     <title>Atalaya Studio | Inicio</title>
 
     <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="js/main.js" defer></script>
   </head>
-  
-  <body>
-    <header>
-      <h1>Bienvenido a Atalaya Studio</h1>
-      <p>Tu socio creativo para diseño gráfico y desarrollo web.</p>
 
-      <nav>
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="servicios.html">Servicios</a></li>
-          <li><a href="portafolio.html">Portafolio</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
-        </ul>
-      </nav>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+    <header class="site-header">
+      <div class="header-content">
+        <a class="brand" href="index.html" aria-label="Atalaya Studio - Inicio">
+          Atalaya Studio
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-controls="menu-principal"
+          aria-expanded="false"
+        >
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span class="sr-only">Abrir menú</span>
+        </button>
+
+        <nav aria-label="Navegación principal">
+          <ul id="menu-principal" class="nav-list">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="portafolio.html">Portafolio</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main id="contenido">
       <section class="hero">
-        <h2>Transformamos tus ideas en realidad</h2>
+        <p class="eyebrow">Diseño gráfico y web para marcas en crecimiento</p>
+        <h1>Transformamos tus ideas en realidad</h1>
         <p>
-          En Atalaya Studio, nos apasiona crear diseños únicos y funcionales que
-          reflejen la esencia de tu marca. Ya sea que necesites un nuevo logo,
-          un sitio web moderno o una campaña de marketing visual, estamos aquí
-          para ayudarte a destacar.
+          En Atalaya Studio, creamos diseños únicos y funcionales que reflejan
+          la esencia de tu marca. Ya sea que necesites un nuevo logo, un sitio
+          web moderno o una campaña visual, estamos aquí para ayudarte a
+          destacar.
         </p>
         <a href="servicios.html" class="btn">Descubre nuestros servicios</a>
       </section>
 
-      <section id="testimonios">
-        <h2>Lo que dicen nuestros clientes</h2>
-        <div id="contenedor-testimonios"></div>
+      <section
+        id="testimonios"
+        class="section-block"
+        aria-labelledby="testimonios-titulo"
+      >
+        <h2 id="testimonios-titulo">Lo que dicen nuestros clientes</h2>
+        <p id="estado-testimonios" class="status" role="status">
+          Cargando testimonios...
+        </p>
+        <div
+          id="contenedor-testimonios"
+          class="testimonios-grid"
+          aria-live="polite"
+        ></div>
       </section>
 
-      <section class="contactanos">
-        <h2>Contáctanos</h2>
+      <section
+        class="contactanos section-block"
+        id="contacto"
+        aria-labelledby="contacto-titulo"
+      >
+        <h2 id="contacto-titulo">Contáctanos</h2>
+        <p>
+          Cuéntanos qué quieres construir y te responderemos con una primera
+          orientación.
+        </p>
 
-        <form action="#" method="post">
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required />
+        <form id="form-contacto" action="#" method="post" novalidate>
+          <div class="form-field">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              autocomplete="name"
+              minlength="2"
+              required
+              aria-describedby="error-nombre"
+            />
+            <span class="error" id="error-nombre"></span>
+          </div>
 
-          <label for="email">Correo electrónico:</label>
-          <input type="email" id="email" name="email" required />
+          <div class="form-field">
+            <label for="email">Correo electrónico</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              aria-describedby="error-email"
+            />
+            <span class="error" id="error-email"></span>
+          </div>
 
-          <label for="mensaje">Mensaje:</label>
-          <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+          <div class="form-field">
+            <label for="mensaje">Mensaje</label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              rows="5"
+              minlength="10"
+              required
+              aria-describedby="error-mensaje"
+            ></textarea>
+            <span class="error" id="error-mensaje"></span>
+          </div>
 
-          <button type="submit">Enviar</button>
+          <button type="submit">Enviar mensaje</button>
+          <p id="estado-formulario" class="status" role="status"></p>
         </form>
       </section>
     </main>
@@ -67,6 +135,4 @@
       <p>&copy; 2026 Atalaya Studio. Todos los derechos reservados.</p>
     </footer>
   </body>
-
-  <script type="module" src="js/main.js"></script>
 </html>

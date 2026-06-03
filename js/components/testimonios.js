@@ -1,15 +1,30 @@
+const createTextElement = (tagName, text, className) => {
+  const element = document.createElement(tagName);
+  element.textContent = text;
+
+  if (className) {
+    element.className = className;
+  }
+
+  return element;
+};
+
 export const renderTestimonios = (usuarios, contenedor) => {
-  const items = usuarios.slice(0, 3);
+  contenedor.replaceChildren();
 
-  items.forEach((usuario) => {
+  usuarios.slice(0, 3).forEach((usuario) => {
     const card = document.createElement("article");
+    card.className = "testimonio-card";
 
-    card.innerHTML = `
-            <h3>"${usuario.name}"</h3>
-            <p>Trabaja en: <strong>${usuario.company.name}</strong></p>
-            <small>Email: ${usuario.email}</small>
-            <hr>
-        `;
+    const nombre = usuario?.name ?? "Cliente de Atalaya";
+    const empresa = usuario?.company?.name ?? "Proyecto creativo";
+    const email = usuario?.email ?? "contacto privado";
+
+    card.append(
+      createTextElement("h3", nombre),
+      createTextElement("p", `Trabaja en: ${empresa}`),
+      createTextElement("small", `Email: ${email}`),
+    );
 
     contenedor.appendChild(card);
   });
