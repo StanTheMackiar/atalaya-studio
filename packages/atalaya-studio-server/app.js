@@ -1,16 +1,30 @@
 import cors from "cors";
 import express from "express";
+import { existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import "./config/db.config.js";
+const currentDirectory = dirname(fileURLToPath(import.meta.url));
+const envPath = resolve(currentDirectory, ".env");
 
-process.loadEnvFile("./.env");
+if (existsSync(envPath)) {
+	process.loadEnvFile(envPath);
+}
 
 import { contactRouter, testimonialsRouter } from "./router/index.js";
 
 const PORT = process.env.PORT || 3010;
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+	origin: "*",
+	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+	allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+	optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 
 //Routes
