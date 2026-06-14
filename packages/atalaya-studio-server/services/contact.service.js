@@ -20,7 +20,7 @@ export class ContactService {
 
 			res
 				.status(201)
-				.json({ status: "success", message: "Datos insertados correctamente" });
+				.json({ status: "success", message: "Datos enviados correctamente" });
 		} catch (error) {
 			console.error("Error al guardar en la base de datos:", error);
 			res.status(500).json({ error: "Hubo un error interno en el servidor" });

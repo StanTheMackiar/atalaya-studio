@@ -1,5 +1,6 @@
 import { renderTestimonios } from "./components/testimonios.js";
-import { fetchTestimonios } from "./http/api.js";
+import { sendContactForm } from "./http/contact-api.js";
+import { fetchTestimonios } from "./http/testimonials-api.js";
 
 const initMenu = () => {
 	const toggle = document.querySelector(".menu-toggle");
@@ -75,7 +76,7 @@ const initForm = () => {
 		});
 	});
 
-	form.addEventListener("submit", (event) => {
+	form.addEventListener("submit", async (event) => {
 		event.preventDefault();
 
 		const validationResults = fields.map((field) => showFieldError(field));
@@ -89,8 +90,15 @@ const initForm = () => {
 			return;
 		}
 
-		status.textContent =
-			"Mensaje validado correctamente. Gracias por contactarnos.";
+		const formData = new FormData(form);
+
+		const name = formData.get("nombre");
+		const email = formData.get("email");
+		const message = formData.get("mensaje");
+
+		const response = await sendContactForm(name, email, message);
+
+		status.textContent = response;
 		status.classList.add("success");
 		form.reset();
 		fields.forEach((field) => {
