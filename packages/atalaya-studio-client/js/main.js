@@ -2,6 +2,50 @@ import { renderTestimonios } from "./components/testimonios.js";
 import { sendContactForm } from "./http/contact-api.js";
 import { fetchTestimonios } from "./http/testimonials-api.js";
 
+const THEME_STORAGE_KEY = "atalaya-theme";
+
+const getStoredTheme = () => {
+	const theme = localStorage.getItem(THEME_STORAGE_KEY);
+	return theme === "dark" || theme === "light" ? theme : "light";
+};
+
+const applyTheme = (theme) => {
+	const isDark = theme === "dark";
+	const toggle = document.querySelector(".theme-toggle");
+	const icon = document.querySelector(".theme-toggle__icon");
+
+	document.documentElement.dataset.theme = theme;
+
+	if (toggle) {
+		toggle.setAttribute("aria-pressed", String(isDark));
+		toggle.setAttribute(
+			"aria-label",
+			isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro",
+		);
+	}
+
+	if (icon) {
+		icon.textContent = isDark ? "☀️" : "🌙";
+	}
+};
+
+const initTheme = () => {
+	const toggle = document.querySelector(".theme-toggle");
+	const initialTheme = getStoredTheme();
+
+	applyTheme(initialTheme);
+
+	if (!toggle) return;
+
+	toggle.addEventListener("click", () => {
+		const currentTheme = document.documentElement.dataset.theme;
+		const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+		localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+		applyTheme(nextTheme);
+	});
+};
+
 const initMenu = () => {
 	const toggle = document.querySelector(".menu-toggle");
 	const menu = document.getElementById("menu-principal");
@@ -128,6 +172,7 @@ const initTestimonios = async () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+	initTheme();
 	initMenu();
 	initForm();
 	initTestimonios();
