@@ -1,23 +1,12 @@
-import { DatabaseSync } from "node:sqlite";
+import { cert, initializeApp } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
-export const db = new DatabaseSync("./data.db");
+process.loadEnvFile("./.env");
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS contactos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    message TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS testimonios (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    enterprise TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+initializeApp({
+	credential: cert(serviceAccount),
+});
+
+export const db = getFirestore();

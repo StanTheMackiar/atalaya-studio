@@ -1,17 +1,22 @@
 {
-	"name": "atalaya-studio-server",
-	"version": "1.0.0",
-	"type": "module",
-	"main": "app.js",
-	"scripts": {
-		"dev": "node --watch app.js",
-		"start": "node  app.js"
-	},
-	"engines": {
-		"node": ">=22.0.0"
-	},
-	"dependencies": {
-		"cors": "^2.8.6",
-		"express": "5.2.1"
-	}
+  "name": "atalaya-studio-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --watch app.js",
+    "start": "node  app.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "cors": "2.8.6",
+    "express": "5.2.1",
+    "firebase-admin": "14.0.0",
+    "serverless-http": "4.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "26.1.0"
+  }
 }

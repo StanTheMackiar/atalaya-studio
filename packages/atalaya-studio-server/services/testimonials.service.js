@@ -4,7 +4,7 @@ export class TestimonialsService {
 	async createTestimonial(req, res) {
 		const { name, email, enterprise } = req.body ?? {};
 
-		//En un proyecto real usaría una libreria como zod o Joi para validar los datos de entrada
+		// En un proyecto real usaría una librería como zod o Joi para validar los datos de entrada
 		if (!name || !email || !enterprise) {
 			return res
 				.status(400)
@@ -12,32 +12,46 @@ export class TestimonialsService {
 		}
 
 		try {
-			const insert = db.prepare(
-				"INSERT INTO testimonios (name, email, enterprise) VALUES (?, ?, ?)",
-			);
+			await db.collection("testimonios").add({
+				name,
+				email,
+				enterprise,
+				createdAt: new Date().toISOString(),
+			});
 
-			insert.run(name, email, enterprise);
-
-			res
+			return res
 				.status(201)
 				.json({ status: "success", message: "Datos insertados correctamente" });
 		} catch (error) {
-			console.error("Error al guardar en la base de datos:", error);
-			res.status(500).json({ error: "Hubo un error interno en el servidor" });
+			console.error("Error al guardar en Firebase Firestore:", error);
+			return res
+				.status(500)
+				.json({ error: "Hubo un error interno en el servidor" });
 		}
 	}
 
 	async getTestimonials(_, res) {
 		try {
-			const select = db.prepare(
-				"SELECT * FROM testimonios ORDER BY created_at DESC",
-			);
-			const testimonials = select.all();
+			const snapshot = await db
+				.collection("testimonios")
+				.orderBy("createdAt", "desc")
+				.get();
 
-			res.status(200).json({ status: "success", data: testimonials });
+			if (snapshot.empty) {
+				return res.status(200).json({ status: "success", data: [] });
+			}
+
+			const testimonials = snapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}));
+
+			return res.status(200).json({ status: "success", data: testimonials });
 		} catch (error) {
-			console.error("Error al obtener datos de la base de datos:", error);
-			res.status(500).json({ error: "Hubo un error interno en el servidor" });
+			console.error("Error al obtener datos de Firebase Firestore:", error);
+			return res
+				.status(500)
+				.json({ error: "Hubo un error interno en el servidor" });
 		}
 	}
 }

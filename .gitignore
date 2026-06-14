@@ -4,3 +4,4 @@ build
 .turbo
 .vscode
 .env
+fb-private-key.json

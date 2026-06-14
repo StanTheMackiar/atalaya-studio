@@ -3,9 +3,9 @@ import express from "express";
 
 import "./config/db.config.js";
 
-import { contactRouter, testimonialsRouter } from "./router/index.js";
-
 process.loadEnvFile("./.env");
+
+import { contactRouter, testimonialsRouter } from "./router/index.js";
 
 const PORT = process.env.PORT || 3010;
 const app = express();
