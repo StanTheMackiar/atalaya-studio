@@ -1,0 +1,34 @@
+{
+	"name": "atalaya-studio",
+	"version": "1.0.0",
+	"description": "Sitio web creado con fines educativos, para mi especialización en Desarrollo de Software en UniAsturias",
+	"packageManager": "npm@11.6.1",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/StanTheMackiar/atalaya-studio.git"
+	},
+	"workspaces": [
+		"packages/atalaya-studio-client",
+		"packages/atalaya-studio-server"
+	],
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"start": "turbo run start",
+		"lint": "biome lint .",
+		"format": "biome format --write .",
+		"check": "biome check --write ."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/StanTheMackiar/atalaya-studio/issues"
+	},
+	"homepage": "https://github.com/StanTheMackiar/atalaya-studio#readme",
+	"devDependencies": {
+		"@biomejs/biome": "2.4.15",
+		"turbo": "2.5.8"
+	}
+}

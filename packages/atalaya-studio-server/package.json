@@ -1,0 +1,16 @@
+{
+	"name": "atalaya-studio-server",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "app.js",
+	"scripts": {
+		"dev": "node --watch app.js",
+		"start": "node  app.js"
+	},
+	"engines": {
+		"node": ">=22.0.0"
+	},
+	"dependencies": {
+		"express": "5.2.1"
+	}
+}
