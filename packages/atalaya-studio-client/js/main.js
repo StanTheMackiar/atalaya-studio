@@ -93,7 +93,9 @@ const initForm = () => {
 			"Mensaje validado correctamente. Gracias por contactarnos.";
 		status.classList.add("success");
 		form.reset();
-		fields.forEach((field) => field.setAttribute("aria-invalid", "false"));
+		fields.forEach((field) => {
+			field.setAttribute("aria-invalid", "false");
+		});
 	});
 };
 

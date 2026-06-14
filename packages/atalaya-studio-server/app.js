@@ -1,16 +1,21 @@
+import cors from "cors";
 import express from "express";
+
 import "./config/db.config.js";
-import contactRouter from "./router/contact.routes.js";
+
+import { contactRouter, testimonialsRouter } from "./router/index.js";
 
 process.loadEnvFile("./.env");
 
 const PORT = process.env.PORT || 3010;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 //Routes
 app.use("/contact", contactRouter);
+app.use("/testimonials", testimonialsRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

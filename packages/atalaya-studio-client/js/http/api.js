@@ -1,8 +1,8 @@
-const BASE_URL = "https://jsonplaceholder.typicode.com/users";
+import { API_BASE_URL } from "../../utils/constants/api-base-url.const";
 
 export const fetchTestimonios = async () => {
 	try {
-		const response = await fetch(BASE_URL, {
+		const response = await fetch(`${API_BASE_URL}/testimonials`, {
 			headers: {
 				Accept: "application/json",
 			},
@@ -12,8 +12,8 @@ export const fetchTestimonios = async () => {
 			throw new Error(`Respuesta HTTP ${response.status}`);
 		}
 
-		const data = await response.json();
-		return Array.isArray(data) ? data : [];
+		const parsedRes = await response.json();
+		return parsedRes.data ?? [];
 	} catch (error) {
 		console.error("Error fetching testimonios:", error);
 

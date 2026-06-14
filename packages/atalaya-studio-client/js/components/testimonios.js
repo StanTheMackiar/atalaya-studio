@@ -17,7 +17,7 @@ export const renderTestimonios = (usuarios, contenedor) => {
 		card.className = "testimonio-card";
 
 		const nombre = usuario?.name ?? "Cliente de Atalaya";
-		const empresa = usuario?.company?.name ?? "Proyecto creativo";
+		const empresa = usuario?.enterprise ?? "Proyecto creativo";
 		const email = usuario?.email ?? "contacto privado";
 
 		card.append(
