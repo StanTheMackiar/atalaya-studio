@@ -9,10 +9,9 @@ const app = express();
 
 app.use(express.json());
 
+//Routes
 app.use("/contact", contactRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
-
-export default app;

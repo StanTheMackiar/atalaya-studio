@@ -1,8 +1,8 @@
-export class ContactService {
-	constructor() {}
+import { db } from "../config/db.config.js";
 
+export class ContactService {
 	async createContactRequest(req, res) {
-		const { name, email, message } = req.body;
+		const { name, email, message } = req.body ?? {};
 
 		//En un proyecto real usaría una libreria como zod o Joi para validar los datos de entrada
 		if (!name || !email || !message) {
@@ -23,6 +23,18 @@ export class ContactService {
 				.json({ status: "success", message: "Datos insertados correctamente" });
 		} catch (error) {
 			console.error("Error al guardar en la base de datos:", error);
+			res.status(500).json({ error: "Hubo un error interno en el servidor" });
+		}
+	}
+
+	async getContactRequests(_, res) {
+		try {
+			const select = db.prepare("SELECT * FROM contactos");
+			const contactRequests = select.all();
+
+			res.status(200).json({ status: "success", data: contactRequests });
+		} catch (error) {
+			console.error("Error al obtener datos de la base de datos:", error);
 			res.status(500).json({ error: "Hubo un error interno en el servidor" });
 		}
 	}

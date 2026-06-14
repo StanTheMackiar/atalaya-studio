@@ -4,6 +4,12 @@ import { ContactService } from "../services/contact.service.js";
 const service = new ContactService();
 const contactRouter = Router();
 
-contactRouter.post("/", service.createContactRequest.bind(service));
+contactRouter.post("/", (req, res) => {
+	return service.createContactRequest(req, res);
+});
+
+contactRouter.get("/", (req, res) => {
+	return service.getContactRequests(req, res);
+});
 
 export default contactRouter;
